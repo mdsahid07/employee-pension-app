@@ -2,13 +2,16 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # 👇 All `run:` steps below will execute from this folder
+    defaults:
+      run:
+        working-directory: employee-pension-app
 
     steps:
       - name: Checkout code
@@ -17,11 +20,16 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '21'
+          cache: maven
 
-      - name: Build with Maven
-        run: mvn -B clean package --file pom.xml
+      - name: Build & test
+        run: mvn -B clean verify
 
-      - name: Run Tests
-        run: mvn test
+      - name: Upload JAR artifact (optional)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: employee-pension-app-jar
+          path: employee-pension-app/target/*.jar
