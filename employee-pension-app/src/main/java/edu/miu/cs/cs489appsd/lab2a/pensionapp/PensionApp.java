@@ -57,7 +57,7 @@ public class PensionApp {
                 .findAndRegisterModules()
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-        System.out.println("=== Quarterly Upcoming Enrollees ===");
+        System.out.println("=== Quarterly Upcoming Enrollees List ===");
         System.out.println(mapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsString(eligible));
     }
