@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # 👇 All `run:` steps below will execute from this folder
+    # 👇 run all `run:` steps from the subfolder that contains pom.xml
     defaults:
       run:
         working-directory: employee-pension-app
@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: employee-pension-app-jar
-          path: employee-pension-app/target/*.jar
+          path: target/*.jar
